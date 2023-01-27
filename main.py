@@ -41,8 +41,8 @@ def validate_image(name):
 def get_filter():
     # get which filter to use
     print(
-        "Enter which filter you want to apply? \n[1] Greyscale \n[2] Blur \n[3] Sharpen \n[4] Reverse \n[5] Rotate \n[6] Change Resolutione (Only jpg/jpeg)\n")
-
+        "Enter which filter you want to apply? \n[1] Greyscale \n[2] Blur \n[3] Sharpen \n[4] Reverse \n[5] Rotate \n[6] Change Resolutione\n")
+  
     while True:
         filter = input("Filter No: ")
 
