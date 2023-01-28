@@ -41,10 +41,10 @@ def validate_image(name):
 def get_filter():
     # get which filter to use
     print(
-        "Enter which filter you want to apply? \n[1] Greyscale \n[2] Blur \n[3] Sharpen \n[4] Reverse \n[5] Rotate \n[6] Change Resolutione\n")
+        "\nEnter which filter/edit you want to apply? \n[1] Greyscale \n[2] Blur \n[3] Sharpen \n[4] Edge Detection \n[5] Reverse \n[6] Rotate \n")
   
     while True:
-        filter = input("Filter No: ")
+        filter = input("No: ")
 
         match filter:
             case "1":
@@ -54,13 +54,13 @@ def get_filter():
             case "3":
                 return "sharpen"
             case "4":
-                return "reverse"
+                return "edges"
             case "5":
-                return "rotate"
+                return "reverse"
             case "6":
-                return "resolution"
+                return "rotate"
             case _:
-                print("Please Enter the filter [1 to 6]")
+                print("Please Enter Between [1 to 6]")
                 continue
 
 
@@ -92,29 +92,19 @@ def apply_filter(image_name, filter_name):
             image = Image.open(image_name)
             image = image.filter(ImageFilter.SHARPEN)
             image.save(f"edited_{image_name}")
-
+        
+        # Detect edges
+        elif filter_name == "edges":
+            image = Image.open(image_name)
+            image = image.filter(ImageFilter.SMOOTH)
+            image = image.filter(ImageFilter.FIND_EDGES)
+            image.save(f"edited_{image_name}")
+            
         # Reverse
         elif filter_name == "reverse":
             image = Image.open(image_name)
             image = image.transpose(Image.FLIP_LEFT_RIGHT)
             image.save(f"edited_{image_name}")
-
-        # Changing Image Resolution
-        elif filter_name == "resolution":
-            while True:
-                print(
-                    "Enter a Quality of an image You want [1 to 100]\n[100] is the highest quality\n[ 1 ] is the lowest quality\n")
-                res = input("Enter [1 to 100]: ")
-
-                if res.isdigit():
-
-                    res = int(res)
-                    if 1 <= res <= 100:
-                        image = Image.open(image_name)
-                        image.save(f"edited_{image_name}", quality=res)
-                        break
-                    else:
-                        print("Please enter a number between 1 to 100")
 
         # Rotate
         elif filter_name == "rotate":
